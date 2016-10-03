@@ -3,7 +3,7 @@
 const User = require('../models/user');
 const bcrypt = require("bcrypt");
 
-const BC_DIFFICULTY = 12;
+const BC_DIFFICULTY = 5;
 
 module.exports.create = (req, res, err) => {
   const newEmail = req.body.email;

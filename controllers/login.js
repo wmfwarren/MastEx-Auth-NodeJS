@@ -12,18 +12,29 @@ module.exports.create = (req, res) => {
     console.log(user);
     if(user){
       console.log("IF DONE GONE FIRED");
-      bcrpyt.compare(inputPassword, user.password, (err, matches) => {
-        console.log("COMPARE DONE GONE FIRED");
-        if(matches) {
-          req.session.email = inputEmail;
-          res.send({msg: "Good'ay Mate"});
-        } else {
-          res.send({msg: "You messed it up"});
-        }
-
+      console.log("USERPW", user.password);
+      console.log("Typed PW", inputPassword);
+      return new Promise ((resolve, reject) => {
+      console.log("Promise DONE GONE FIRED");
+        bcrpyt.compare(inputPassword, user.password, (err, matches) => {
+          console.log("Compare fired");
+          if(err) {
+            reject(err);
+          } else {
+            resolve(matches);
+          }
+        })
       })
-      .catch(err);
-    } else {
+      .then((matches) => {
+        if(matches){
+          session.email = inputEmail;
+          res.send({msg: "Good News everybody"});
+        } else {
+          res.send({msg: "you meesed up something, try again!"});
+        }
+      })
+      .catch(err)
+  } else {
       res.send({msg: "No such email"});
     }
   })
