@@ -6,6 +6,6 @@ const session = require("../controllers/logout.js")
 
 const router = Router();
 
-router.get("/logout", session.destroy);
+router.post("/logout", session.destroy);
 
 module.exports = router;

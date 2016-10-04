@@ -9,15 +9,9 @@ module.exports.create = (req, res) => {
 
   User.findOne({email: inputEmail})
   .then ((user) => {
-    console.log(user);
     if(user){
-      console.log("IF DONE GONE FIRED");
-      console.log("USER", user);
-      console.log("Typed PW", inputPassword);
       return new Promise ((resolve, reject) => {
-      console.log("Promise DONE GONE FIRED");
         bcrypt.compare(inputPassword, user.password, (err, matches) => {
-          console.log("Compare fired");
           if(err) {
             reject(err);
           } else {
@@ -27,7 +21,7 @@ module.exports.create = (req, res) => {
       }) //end of new promise
       .then((matches) => {
         if(matches){
-          // session.email = inputEmail;
+          req.session.email = inputEmail;
           res.send({msg: "Good News everybody"});
         } else {
           res.send({msg: "you meesed up something, try again!"});
