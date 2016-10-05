@@ -14,7 +14,7 @@ module.exports.create = (req, res, err) => {
       User.findOne({email: newEmail})
       .then((user) => {
       if (user){
-        return res.send({msg: "Already registered"});
+        return res.render( "index", {msg: "Hey hey youre already here", email: inputEmail});
       } else {
         return new Promise ((resolve, reject) => {
           bcrypt.hash(password, BC_DIFFICULTY, (err, hash) => {
@@ -23,13 +23,13 @@ module.exports.create = (req, res, err) => {
             })
          })
        .then((hash) => {
-            res.send({msg: "You exist now!"});
+            res.render("index", {msg: "Good Job! Welcome! Etc!", email: newEmail});
             return User.create({email: newEmail, password: hash})
         })
       }
     })
     }
      else {
-        return res.send({msg: "Passwords dont't match :("})
+        return res.render("index", {msg: "Passwords dont't match :(", email: "person"});
       }
   }

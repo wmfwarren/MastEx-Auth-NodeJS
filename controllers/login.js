@@ -22,14 +22,14 @@ module.exports.create = (req, res) => {
       .then((matches) => {
         if(matches){
           req.session.email = inputEmail;
-          res.send({msg: "Good News everybody"});
+          res.render( "index", {msg: "Hey You're In the cool Club with WeiRd Caps", email: inputEmail});
         } else {
-          res.send({msg: "you meesed up something, try again!"});
+          res.render( "index", {msg: "you messed up something, try again!"});
         } //end of if else
       }) //end of the then for the mathing promise
       .catch(err) //catch bcrpyt.comapre errs
   } else {
-      res.send({msg: "No such email"});
+      res.render("index", {msg: "No such email"});
     } //end of else form if(user)
   }) //end of the findOne.then
 } //end of module.exports

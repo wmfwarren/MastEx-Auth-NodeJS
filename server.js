@@ -22,7 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
+app.set("view engine","pug");
 app.use(require("./routes"));
 
 
